@@ -1,0 +1,6 @@
+ta:
+  not_authorized: "அங்கீகரிக்கப்படவில்லை"
+  user_not_found: "பயனர் %{user_id} கிடைக்கவில்லை"
+  valid_role: "சரியான பாத்திரமாக இருக்க வேண்டும்"
+  internal_server_error: "உள் சேவையகப் பிழை"
+

@@ -1,0 +1,7 @@
+
+en:
+  not_authorized: "Not Authorized"
+  user_not_found: "User %{user_id} not found"
+  valid_role: "must be valid role"
+  internal_server_error: "Internal server error"
+

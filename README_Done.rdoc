@@ -1,0 +1,133 @@
+Done
+----------
+
+# @@@ save/update, update_attributes (variation)
+Save: 
+    it won't accept the params 
+    single records
+
+Update: 
+    it's accept the params
+
+update_attribute
+    Skip validation 
+    Call back, & updated_at will work
+    single props
+update_attribute(:name, "safi") 
+
+update_column  
+    It's support multiple atttributes 
+    NO validation/callback/updated_at col
+    Direct update to DB 
+    update_columns(name:"", age: 12;)
+
+Ex:
+    @user.update_column(:name, "safi") 
+
+update_columns: 
+    @user.update_columns(name:"sa", display_name:"safi")
+
+
+Action & Application controller
+
+ActionContolller in ruby method. 
+    1.Base class API. API controller light wight of Base.. 
+ApplicationContoler will inherits ActionController  this is custom class from us. 
+
+ApploicationController parent for all our resouce controller.
+
+
+
+Save & save!
+save  --> It validates fails it will retunr nil and won't save records. It wil call create/update method 
+save! ---> thorw the exception and it call create!/udpate!
+
+
+
+# cookie set
+  def set_cookie 
+    cookies[:server_id] = "123123"
+    cookies.signed.permanent[:user_id] ={
+      value:"u-1244", 
+      secure: true, 
+      httponly: true, 
+      expires: 1.hour # Time.utc(anytime)
+      # domain & path, we can provide 
+    }
+    #cookies.encrypted --> user can't view the data 
+    #cookies.signed --> user can't change the value read only 
+    #cookies.permanent --> rails default 20 uears for now
+    render status: :ok, json: {}
+end 
+
+
+# run query without default scope
+Model.unscoped.
+User.unscoped.find_user_by_role(1) 
+
+
+# multi argument in scope
+    scope :find_user_by_role_and_no, ->(id, phone_number) {where(role_id:id, phone_number:phone_number)} 
+
+# combining/chaning multiple scopes
+we can chain N of scope, if we want remove default scope we can use unscoped
+     User.find_user_by_role(1).find_user_by_role_and_no(2,1) 
+
+unscope where we place, It will remove all scope before added model, after scope sppies. 
+Ex: 
+ User.find_user_by_role(1).unscoped.find_user_by_role_and_no(2,1) 
+ find_user_by_role & default won't apply but find_user_by_role will apply. 
+
+
+
+# unique validation - not in DB
+  validates_uniqueness_of :user_name, scope: :role_id 
+    #muli scipe  scope: [:role_id, :other_props]
+
+
+
+    after_destroy :check_user_record
+
+    def check_user_record
+        raise "Atleast one user should present" if User.count === 0
+    end
+
+
+    Instance/Class/global variable
+
+
+    global variable  
+        $ -->prefix 
+         star with doller. we can replace an access across app 
+
+    Class 
+     @@ --> prefix. 
+     child can overwrite paren class variable  or parent variable changed it also reflect child instance 
+
+
+    Instance 
+    @ --> predix 
+        other class can't be access 
+
+
+instance variables are available only to class methods and not to instance methods.
+Class variables are available to both instance methods and class methods.
+
+
+protected attributes
+
+# MODEl
+attr_accessible :name, :as => :admin
+attr_protected :age
+@user = User.new 
+@user.assign_attributes({ name:"sathish"}) # WARNING: Can't mass-assign protected attributes for User: name
+@user.assign_attributes({ name:"sathish"}, :as => :admin) #role group was admin. 
+@user.assign_attributes({ name:"kumar"}, :without_protection =>true)  #we can give without_protection flag to overwrite
+
+
+
+Route - resources, scope, namespace, validation
+
+
+namespace = scope + module 
+

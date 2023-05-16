@@ -1,0 +1,18 @@
+== README
+
+Done: 
+-------
+
+
+In progress:
+--------
+# exception handling
+
+Later
+-----
+Thread vairable
+    Sidekiq gem - background worker (redis)
+    update action - update in worker
+
+Rspec - gem
+Controller serializer
