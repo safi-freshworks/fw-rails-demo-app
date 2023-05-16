@@ -24,4 +24,4 @@
     Sidekiq gem - background worker (redis)
     update action - update in worker
 1. Ruby Exception handling
-1. RSepec setup and write sample test case in user model
+1. RSpec setup and write sample test case in user model
